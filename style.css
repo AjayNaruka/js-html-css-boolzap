@@ -14,6 +14,9 @@ body{
     #249688 15vh,
     #dadbd4 15vh,
     #dadbd4 15vh);
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
 }
 .clearfix::after{
   display: table;
@@ -29,6 +32,17 @@ body{
   height: 95%;
   background-color: white;
 }
+i{
+  cursor: pointer;
+}
+i:hover{
+  opacity: .5;
+}
+
+
+/* /////////////////////////////////// */
+/* /////////////////////////////////// */
+/* /////////////////////////////////// */
 .container .left, .container .right{
   float: left;
 }
@@ -51,8 +65,9 @@ body{
   justify-content: center;
   align-items: center;
   height: calc(100% - 140px);
-  background-image: url("whatsappBg.jpg");
-  background-size: 400px;
+  background-image: url("img/mine.jpg");
+  /* background-size: 400px; */
+  overflow-y:scroll;
 }
 .right header{
   display: flex;
@@ -96,14 +111,14 @@ footer .textMessageInput input{
   border-radius: 5px;
   border:none;
   outline: none;
-  font-size: 16px;
+  font-size: 14px;
   padding: 0px 10px
 }
 footer .voiceMessage{
   width:10%
 }
 footer i{
-  font-size: 24px;
+  font-size: 22px;
 }
 
 
@@ -112,33 +127,52 @@ footer i{
 .chat-area{
   height: 85%;
   width: 75%;
-  background-color: pink;
+  /* background-color: pink; */
   min-height: 200px;
 }
 .message-row{
   display: flex;
   align-items: center;
-  background-color: salmon;
+  /* background-color: salmon; */
   width: 100%;
   margin-bottom: 10px;
 }
 .message-box{
+  position: relative;
   justify-self: right;
-  background-color: red;
+  /* background-color: red; */
   width: fit-content;
-  padding: 12px;
+  padding: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
   max-width: 350px;
   overflow-wrap: break-word;
   border-radius: 10px;
-  font-size: small;
-  min-width: 200px;
+  /* font-size: small; */
+  font-size: 14px;
+  min-width: 250px;
 }
 .message-box.sent{
-  text-align: right;
+  text-align: left;
   margin-left: auto;
+  background-color: #D5F9BA;
 }
 .message-box.received{
   margin-right: auto;
+  background-color: white;
+}
+.message-box i{
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 12px;
+}
+.message-box span.time{
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  font-size: 11px;
+  color:gray
 }
 
 
@@ -178,6 +212,11 @@ footer i{
   display: inline-block;
   margin-left: 5px;
 }
+.avatarInfos span.accesso{
+  color:#93989A;
+  font-size:14px;
+  font-weight: 400;
+}
 .avatar img{
   width: 100%;
 }
@@ -189,7 +228,8 @@ footer i{
 .currentUserIcons ul li{
   display: inline-block;
   margin-left: 20px;
-  font-size: x-large;
+  /* font-size: x-large; */
+  font-size: 20px;
 }
 i.lightgrey{
   color: #B1B1B1;
@@ -264,3 +304,16 @@ i.bell{
 
 
 
+
+/* HOVERS */
+
+.left .userChatBox:hover{
+  cursor: pointer;
+  background-color: lightgray;
+}
+.avatar:hover{
+  cursor: pointer;
+}
+.message-box:hover i{
+  display: block;
+}

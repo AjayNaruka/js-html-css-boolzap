@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <title>WhatsApp</title>
 </head>
@@ -20,7 +22,7 @@
             <img src="img/avatar_io.jpg" alt="">
           </div>
           <div class="avatarInfos">
-            <span>Nome Utente</span>
+            <span>Ajay Naruka</span>
           </div>
           
         </div>
@@ -38,7 +40,7 @@
         </div>
         <div class="avatarInfos">
           <span>Ricevi Notifiche di nuovi messaggi</span>
-          <span><a href="#">LINK</a></span>
+          <span class="accesso"><a href="#">Attiva notifiche desktop</a></span>
         </div>
       </div>
       <div class="inputArea">
@@ -50,68 +52,15 @@
 
 
       <div class="userList">
-        <div class="userChatBox">
+        <div 
+        v-for="(contact,index) in contacts"
+        @click="attivaChat(index)"
+        class="userChatBox">
           <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
+            <img :src="image(index)" alt="">
           </div>
           <div class="avatarInfos">
-            <span>Nome Utente</span>
-          </div>
-        </div>
-        <div class="userChatBox">
-          <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
-          </div>
-          <div class="avatarInfos">
-            <span>Nome Utente</span>
-          </div>
-        </div>
-        <div class="userChatBox">
-          <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
-          </div>
-          <div class="avatarInfos">
-            <span>Nome Utente</span>
-          </div>
-        </div>
-        <div class="userChatBox">
-          <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
-          </div>
-          <div class="avatarInfos">
-            <span>Nome Utente</span>
-          </div>
-        </div>
-        <div class="userChatBox">
-          <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
-          </div>
-          <div class="avatarInfos">
-            <span>Nome Utente</span>
-          </div>
-        </div>
-        <div class="userChatBox">
-          <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
-          </div>
-          <div class="avatarInfos">
-            <span>Nome Utente</span>
-          </div>
-        </div>
-        <div class="userChatBox">
-          <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
-          </div>
-          <div class="avatarInfos">
-            <span>Nome Utente</span>
-          </div>
-        </div>
-        <div class="userChatBox">
-          <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
-          </div>
-          <div class="avatarInfos">
-            <span>Nome Utente</span>
+            <span>{{contact.name}}</span>
           </div>
         </div>
         
@@ -119,22 +68,24 @@
       </div>
     </aside>
 
+
+    <!-- CONTENT -->
     <main class="right">
       <header>
         <div class="chattingUser">
           <div class="avatar">
-            <i class="bell far fa-bell-slash"></i>
+            <img :src="image(activeChatUser)" alt="">
           </div>
           <div class="avatarInfos">
-            <span>Ricevi Notifiche di nuovi messaggi</span>
-            <span><a href="#">LINK</a></span>
+            <span>{{contacts[activeChatUser].name}}</span>
+            <span class="accesso">Ultimo accesso oggi alle</span>
           </div>
         </div>
         
         <div class="currentUserIcons">
           <ul>
-            <li><i class="lightgrey fas fa-circle-notch"></i></li>
-            <li><i class="lightgrey fas fa-comment-alt"></i></li>
+            <li><i class="lightgrey fas fa-search"></i></li>
+            <li><i class="lightgrey fas fa-paperclip"></i></li>
             <li><i class="lightgrey fas fa-ellipsis-v"></i></li>
           </ul>
         </div>
@@ -145,23 +96,22 @@
         <!-- i messaggi sono contenuti in un loro proprio container -->
         <div class="chat-area">
 
-          <div class="message-row">
-            <div class="message-box sent">
-              TEST SENT MESSAGE
-            </div>
+          <div 
+            v-for="(message,index) in contacts[activeChatUser].messages"
+            class="message-row">
+              <div 
+              :class="testClass(index)">
+                {{message.text}}
+                <i class="lightgrey fas fa-angle-down"></i>
+                <span class="time">{{message.date}}</span>
+              </div>
           </div>
-          <div class="message-row">
-            <div class="message-box received">
-              TEST MESSAGGIO RECEIVED
-            </div>
-          </div>
-        
         </div>
       </section>
 
       <footer>
         <div class="emojis"><i class="darkgrey far fa-smile"></i></div>
-        <div class="textMessageInput"><input type="text" placeholder="Scrivi un messaggio"></div>
+        <div class="textMessageInput"><input type="text" v-model='userWritingMessage' @keyup.enter="inviaMessaggio()" placeholder="Scrivi un messaggio"></div>
         <div class="voiceMessage"><i class="darkgrey fas fa-microphone"></i></div>
       </footer>
     </main>
