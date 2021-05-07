@@ -1,0 +1,266 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(
+    to bottom, 
+    #249688 0px,
+    #249688 15vh,
+    #dadbd4 15vh,
+    #dadbd4 15vh);
+}
+.clearfix::after{
+  display: table;
+  content: '';
+  clear: both;
+}
+.f-left{
+  float: left;
+}
+.container{
+  width: 80%;
+  min-width: 900px;
+  height: 95%;
+  background-color: white;
+}
+.container .left, .container .right{
+  float: left;
+}
+.container .left{
+  width: 35%;
+  height: 100%;
+  background-color:#FAFAFA;
+}
+.container .right{
+  width: 65%;
+  height: 100%;
+  background-color: blue;
+}
+.container .right header, .container .right footer{
+  height: 70px;
+  /* background-color: white; */
+}
+.container .right section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 140px);
+  background-image: url("whatsappBg.jpg");
+  background-size: 400px;
+}
+.right header{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  background-color: #EAEAEA;
+  line-height: 70px;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+.container .right footer{
+  display: flex;
+  background-color: #F3EEEA;
+}
+.right header .currentUserIcons{
+  line-height: 70px;
+}
+
+
+
+
+
+/* footer  */
+
+footer >div{
+  text-align: center;
+  line-height: 70px;
+  height: 100%;
+  /* background-color: red; */
+}
+footer .emojis{
+  width:10%
+}
+footer .textMessageInput{
+  width:80%;
+  /* padding:10px; */
+}
+footer .textMessageInput input{
+  width: 100%;
+  height: 60%;
+  border-radius: 5px;
+  border:none;
+  outline: none;
+  font-size: 16px;
+  padding: 0px 10px
+}
+footer .voiceMessage{
+  width:10%
+}
+footer i{
+  font-size: 24px;
+}
+
+
+
+/*  RIGHT  */
+.chat-area{
+  height: 85%;
+  width: 75%;
+  background-color: pink;
+  min-height: 200px;
+}
+.message-row{
+  display: flex;
+  align-items: center;
+  background-color: salmon;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.message-box{
+  justify-self: right;
+  background-color: red;
+  width: fit-content;
+  padding: 12px;
+  max-width: 350px;
+  overflow-wrap: break-word;
+  border-radius: 10px;
+  font-size: small;
+  min-width: 200px;
+}
+.message-box.sent{
+  text-align: right;
+  margin-left: auto;
+}
+.message-box.received{
+  margin-right: auto;
+}
+
+
+
+
+/* LEFT */
+.currentUserBar{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  height: 70px;
+  background-color: #EAEAEA;
+  padding: 10px 0;
+  padding-right: 20px;
+  padding-left: 10px;
+  border-right: 1px solid lightgray;
+}
+.notificationAlert{
+  position: relative;
+  height: 80px;
+  background-color: #8EDAFC;
+  line-height: 80px;
+}
+
+.avatar{
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  overflow:hidden;
+  line-height: 50px;
+  text-align: center;
+}
+.avatarInfos{
+  display: inline-block;
+  margin-left: 5px;
+}
+.avatar img{
+  width: 100%;
+}
+.currentUserIcons{
+  height: 100%;
+  line-height: 50px;
+}
+
+.currentUserIcons ul li{
+  display: inline-block;
+  margin-left: 20px;
+  font-size: x-large;
+}
+i.lightgrey{
+  color: #B1B1B1;
+}
+i.darkgrey{
+  color: #6C7375;
+}
+.notificationAlert {
+  padding-left: 20px;
+}
+i.bell{
+  font-size: 20px;
+  color: #8EDAFC
+}
+.notificationAlert .avatarInfos, header .avatarInfos{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.notificationAlert .avatarInfos span,header .avatarInfos span{
+  display: block;
+  line-height: 20px;
+}
+/* LEFT INPUT */
+.left .inputArea{
+  padding: 7.5px 7.5px;
+  background-color: #FAFAFA;
+  height: 50px;
+}
+.left .inputArea .inputDiv{
+  width: 100%;
+  height: 35px;
+  background-color: white;
+  line-height: 35px;
+}
+.inputDiv .input{
+  width:85%;
+}
+.inputDiv .input input{
+  height:34px;
+  width: 100%;
+  border: none;
+  outline: 0;
+}
+.inputDiv .searchIcon{
+  text-align: center;
+  width:15%;
+}
+
+/* LEFT USER LIST */
+.left .userList{
+  background-color: white;
+  width: 98%;
+  overflow:auto;
+  height: calc(100% - 200px);
+  /* margin: 0 auto; */
+  border-right: 1px solid lightgray;
+  
+}
+.left .userList .userChatBox{
+ height: 80px;
+ width: 100%;
+ /* background-color: red; */
+ border-bottom: 1px solid lightgray;
+ line-height: 80px;
+ padding-left: 10px;
+}
+.left .userList .userChatBox .avatar{
+  width: 65px;
+  height: 65px;
+}
+
+
+

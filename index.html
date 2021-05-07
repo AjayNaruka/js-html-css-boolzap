@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css">
+  <title>WhatsApp</title>
+</head>
+<body>
+  
+  <div id="app" class="container">
+
+    <aside class="left">
+      <div class="currentUserBar">
+        <div class="currentUser">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+          
+        </div>
+        <div class="currentUserIcons">
+          <ul>
+            <li><i class="lightgrey fas fa-circle-notch"></i></li>
+            <li><i class="lightgrey fas fa-comment-alt"></i></li>
+            <li><i class="lightgrey fas fa-ellipsis-v"></i></li>
+          </ul>
+        </div>
+      </div>
+      <div class="notificationAlert">
+        <div class="avatar">
+          <i class="bell far fa-bell-slash"></i>
+        </div>
+        <div class="avatarInfos">
+          <span>Ricevi Notifiche di nuovi messaggi</span>
+          <span><a href="#">LINK</a></span>
+        </div>
+      </div>
+      <div class="inputArea">
+        <div class="inputDiv">
+          <div class="searchIcon f-left"><i class="lightgrey fas fa-search"></i></div>
+          <div class="input f-left"><input type="text" placeholder="Cerca o Inizia una nuova chat"></div>
+        </div>
+      </div>
+
+
+      <div class="userList">
+        <div class="userChatBox">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+        </div>
+        <div class="userChatBox">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+        </div>
+        <div class="userChatBox">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+        </div>
+        <div class="userChatBox">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+        </div>
+        <div class="userChatBox">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+        </div>
+        <div class="userChatBox">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+        </div>
+        <div class="userChatBox">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+        </div>
+        <div class="userChatBox">
+          <div class="avatar">
+            <img src="img/avatar_io.jpg" alt="">
+          </div>
+          <div class="avatarInfos">
+            <span>Nome Utente</span>
+          </div>
+        </div>
+        
+        
+      </div>
+    </aside>
+
+    <main class="right">
+      <header>
+        <div class="chattingUser">
+          <div class="avatar">
+            <i class="bell far fa-bell-slash"></i>
+          </div>
+          <div class="avatarInfos">
+            <span>Ricevi Notifiche di nuovi messaggi</span>
+            <span><a href="#">LINK</a></span>
+          </div>
+        </div>
+        
+        <div class="currentUserIcons">
+          <ul>
+            <li><i class="lightgrey fas fa-circle-notch"></i></li>
+            <li><i class="lightgrey fas fa-comment-alt"></i></li>
+            <li><i class="lightgrey fas fa-ellipsis-v"></i></li>
+          </ul>
+        </div>
+
+      </header>
+
+      <section>
+        <!-- i messaggi sono contenuti in un loro proprio container -->
+        <div class="chat-area">
+
+          <div class="message-row">
+            <div class="message-box sent">
+              TEST SENT MESSAGE
+            </div>
+          </div>
+          <div class="message-row">
+            <div class="message-box received">
+              TEST MESSAGGIO RECEIVED
+            </div>
+          </div>
+        
+        </div>
+      </section>
+
+      <footer>
+        <div class="emojis"><i class="darkgrey far fa-smile"></i></div>
+        <div class="textMessageInput"><input type="text" placeholder="Scrivi un messaggio"></div>
+        <div class="voiceMessage"><i class="darkgrey fas fa-microphone"></i></div>
+      </footer>
+    </main>
+
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
