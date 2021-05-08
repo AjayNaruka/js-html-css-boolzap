@@ -3,12 +3,24 @@ const app = new Vue({
   el: '#app',
 
   data: {
-    newMessageDiv :false,
+
+    newMessageDiv :false, //TENDINA
+    searchMessageDiv:false, //TENDINA
+
     toAddNewContactName:'',
-    showtest:true,
+
+    toSearchMessage:'',
+
     activeChatUser:0,
+
     filterChat:'',
+
     userWritingMessage:'',
+
+    anchorToMoveOn:'',
+    nextMatch:0,
+    arrayForMatches:[],
+
     contacts: [
       {
         name: 'Michele',
@@ -103,23 +115,43 @@ const app = new Vue({
     this.initialize()
   },
   methods:{
+
+    initialize(){ //* PER VISIBILITA INIZIALE - NESSUN NOME FILTRATO
+      let innerArrayInit=[]
+      for(let j=0;j<this.contacts.length;j++){
+        innerArrayInit.push(true)
+      } 
+    this.filterContacts=[...innerArrayInit]
+    },
+
+    //CARICAMENTO AVATAR PRENDENDO DAL DATO PRESENTE NEL SINGOLO USER
     image(index){
       return `img/avatar${this.contacts[index].avatar}.jpg`
     },
 
+    /////////////////////////////////////////////////////////////
     //PER SCEGLIERE QUALE CHAT RENDERE VISIBILE NEL CONTENT
+    ////////////////////////////////////////////////////////////
+
     attivaChat(index){
       this.activeChatUser=index;
     },
     
+    ////////////////////////////////////////////
     //PER IMPOSTARE COLORE MESSAGE BOX
+    ////////////////////////////////////////////
+
     isSent(index){
       let bubbleColor='received'
       if(this.contacts[this.activeChatUser].messages[index].status==='sent') bubbleColor='sent'
       return 'message-box '+ bubbleColor
     },
 
+
+    //////////////////////////////////////////////////////
     //INVIO NUOVO MESSAGE NELLA SPECIFICA CHAT APERTA
+    //////////////////////////////////////////////////////
+
     inviaMessaggio(){
       let toAddText= this.userWritingMessage;
       let currentDate = new Date()
@@ -136,7 +168,10 @@ const app = new Vue({
       
     },
 
-    //RICERCA SPECIFICA CHAT
+    ////////////////////////////////////////////////////////
+    //RICERCA SPECIFICA CHAT NEL MENU A SX CON TUTTE LE CHAT
+    ////////////////////////////////////////////////////////
+
     filterUserList(){
       if(this.filterChat===''){
         this.initialize()
@@ -154,13 +189,9 @@ const app = new Vue({
       
     },
 
-    initialize(){ //* PER VISIBILITA INIZIALE - NESSUN NOME FILTRATO
-      let innerArrayInit=[]
-      for(let j=0;j<this.contacts.length;j++){
-        innerArrayInit.push(true)
-      } 
-    this.filterContacts=[...innerArrayInit]
-    },
+    //////////////////////////////////
+    //CREAZIONE NUOVO CONTATTO
+    //////////////////////////////////
 
     //PER APRIRE IL MENU A TENDINA PER IL NUOVO CONTATTO 
     showNewContact(){
@@ -181,10 +212,75 @@ const app = new Vue({
         this.contacts.push(newContactObject)
         this.newMessageDiv=false
         this.attivaChat(this.contacts.length-1)
-        this.initialize() // PER REFRESHARE LA LISTA DELLE CHAT
+        this.initialize() // PER FORZARE REFRESHARE LA LISTA DELLE CHAT
       }
       this.toAddNewContactName=''
     },
+
+    /////////////////////////////////////
+    //RICERCA MESSAGGIO DENTRO CHAT-AREA
+    //////////////////////////////////////
+
+    //apertura menu tendina
+    showSearchDiv(str){
+      if(str==='icon'){
+        this.searchMessageDiv=!this.searchMessageDiv
+      }
+      if(str==='area'){
+        this.searchMessageDiv=false
+      }
+      
+    },
+
+    //funzione di ricerca: facendo un confronto tra v-model e i text presenti nel array messages del active user chat:
+    searchMessage(){
+
+      // PER SALVARE LE VARIE OCCORRENZE
+      let matchIndexes=[]
+
+      if(this.toSearchMessage!==''){
+        let toFind = this.toSearchMessage;
+      
+      for(let i =0;i<this.contacts[this.activeChatUser].messages.length;i++){
+        if(this.contacts[this.activeChatUser].messages[i].text.toLowerCase().includes(toFind.toLowerCase())){
+          matchIndexes.push(i)
+        }
+      }
+      console.log(matchIndexes);
+      console.log('Ci sono: '+matchIndexes.length+'occorrenze');
+      //uso this.nextMatch variabile cosi da modificare il messaggi da visualizzare nel caso ho piu occorrenze
+      this.anchorToMoveOn='#anchor'+matchIndexes[this.nextMatch]
+
+      //SE VOGLIO MOSTRARE SOLO IL PRIMO RISULTATO:
+      /* this.anchorToMoveOn='#anchor'+matchIndexes[0] */
+      
+      //MI SALVO TUTTI GLI INDICI COSI SO QUANTI SONO PER FARE IL CONTROLLO IN MATCHTOLOOK
+      this.arrayForMatches=[...matchIndexes]
+      }
+      
+    },
+    nextMatchtoLook(){
+      console.log(this.arrayForMatches);
+      this.nextMatch++;
+      if(this.nextMatch>this.arrayForMatches.length-1) this.nextMatch=0;
+      this.searchMessage()
+      console.log(this.nextMatch);
+    },
+    prevMatchtoLook(){
+      this.nextMatch--;
+      if(this.nextMatch<0) this.nextMatch=this.arrayForMatches.length-1;
+      this.searchMessage()
+    },
+
+    //PER DARE ID UNIVOCI AI SINGOLI MESSAGGI
+    giveId(index){
+      return 'anchor'+index
+    },
+
+    ///////////////////////////////////////////
+    //<next>
+    //////////////////////////////////////////
+    
 
     numGen(min,max){
       return Math.floor(Math.random() * (max - min + 1) + min)
