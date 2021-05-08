@@ -46,11 +46,13 @@ i:hover{
 .container .left, .container .right{
   float: left;
 }
+
 .container .left{
   width: 35%;
   height: 100%;
   background-color:#FAFAFA;
 }
+
 .container .right{
   width: 65%;
   height: 100%;
@@ -149,7 +151,7 @@ footer i{
   overflow-wrap: break-word;
   border-radius: 10px;
   /* font-size: small; */
-  font-size: 14px;
+  font-size: 15px;
   min-width: 250px;
 }
 .message-box.sent{
@@ -300,6 +302,28 @@ i.bell{
 .left .userList .userChatBox .avatar{
   width: 65px;
   height: 65px;
+}
+
+/* NEW MESSAGE DIV */
+.newMessageForm{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 200px;
+  background-color: white;
+  z-index: 99;
+  left: 480px;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+.newMessageForm input{
+  padding: 10px;
+  width: 80%;
+  height: 80%;
+  border: 0;
+  outline: 0;
 }
 
 

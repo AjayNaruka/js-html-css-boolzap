@@ -3,7 +3,11 @@ const app = new Vue({
   el: '#app',
 
   data: {
+    newMessageDiv :false,
+    toAddNewContactName:'',
+    showtest:true,
     activeChatUser:0,
+    filterChat:'',
     userWritingMessage:'',
     contacts: [
       {
@@ -89,35 +93,36 @@ const app = new Vue({
           }
         ],
       },
-    ]
+    ],
+
+    /* ARRAY CON TRUE O FALSE IN BASE A CHI VOGLIO MOSTRARE A SX - TUTTI TRUE IN PARTENZA con INITIALIZE */
+    filterContacts:[],
   },
 
-
+  mounted: function(){
+    this.initialize()
+  },
   methods:{
     image(index){
       return `img/avatar${this.contacts[index].avatar}.jpg`
     },
+
+    //PER SCEGLIERE QUALE CHAT RENDERE VISIBILE NEL CONTENT
     attivaChat(index){
       this.activeChatUser=index;
     },
+    
+    //PER IMPOSTARE COLORE MESSAGE BOX
     isSent(index){
-      if(this.contacts.messages[activeChatUser].status==="sent") return 'message-box sent'
-      else return 'message-box received';
-    },
-    testClass(index){
       let bubbleColor='received'
       if(this.contacts[this.activeChatUser].messages[index].status==='sent') bubbleColor='sent'
       return 'message-box '+ bubbleColor
     },
+
+    //INVIO NUOVO MESSAGE NELLA SPECIFICA CHAT APERTA
     inviaMessaggio(){
       let toAddText= this.userWritingMessage;
       let currentDate = new Date()
-      console.log(currentDate.getDate());
-      console.log(currentDate.getMonth()+1);
-      console.log(currentDate.getFullYear());
-      console.log(currentDate.getHours());
-      console.log(currentDate.getMinutes());
-      console.log(currentDate.getSeconds());
       
       let toAddMessage={
         date:`${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`,
@@ -129,6 +134,60 @@ const app = new Vue({
       this.userWritingMessage=''
       }
       
+    },
+
+    //RICERCA SPECIFICA CHAT
+    filterUserList(){
+      if(this.filterChat===''){
+        this.initialize()
+      }else{
+        //USO ARRAY AUSILIARIO COSI DA NON DOVER RESETTARE OGNI VOLTA FILTERCONTACTS[]
+        let innerArray=[]
+        for(let i=0;i<this.contacts.length;i++){
+          let viewable=false;
+          if(this.contacts[i].name.toLowerCase().startsWith(this.filterChat.toLowerCase())) viewable=true
+          else viewable=false
+          innerArray.push(viewable)
+        }
+        this.filterContacts=[...innerArray]
+      }
+      
+    },
+
+    initialize(){ //* PER VISIBILITA INIZIALE - NESSUN NOME FILTRATO
+      let innerArrayInit=[]
+      for(let j=0;j<this.contacts.length;j++){
+        innerArrayInit.push(true)
+      } 
+    this.filterContacts=[...innerArrayInit]
+    },
+
+    //PER APRIRE IL MENU A TENDINA PER IL NUOVO CONTATTO 
+    showNewContact(){
+      this.newMessageDiv=!this.newMessageDiv
+    },
+
+    //CREAZIONE NUOVO CONTATTO IN BASE AL VALORE DELL INPUT NEL MENU A TENDINA
+    createNewContact(){
+      if(this.toAddNewContactName!==''){
+        console.log(this.toAddNewContactName);
+        let avatarArray =['_1','_2','_3','_4','_5','_6','_7','_8',]
+        let newContactObject ={
+          name: this.toAddNewContactName,
+          avatar: avatarArray[this.numGen(0,avatarArray.length-1)],
+          visible:true,
+          messages:[]
+        }
+        this.contacts.push(newContactObject)
+        this.newMessageDiv=false
+        this.attivaChat(this.contacts.length-1)
+        this.initialize() // PER REFRESHARE LA LISTA DELLE CHAT
+      }
+      this.toAddNewContactName=''
+    },
+
+    numGen(min,max){
+      return Math.floor(Math.random() * (max - min + 1) + min)
     }
   }
 })

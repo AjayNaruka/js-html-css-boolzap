@@ -13,7 +13,7 @@
 </head>
 <body>
   
-  <div id="app" class="container">
+  <div id="app" class="container" >
 
     <aside class="left">
       <div class="currentUserBar">
@@ -29,7 +29,14 @@
         <div class="currentUserIcons">
           <ul>
             <li><i class="lightgrey fas fa-circle-notch"></i></li>
-            <li><i class="lightgrey fas fa-comment-alt"></i></li>
+            <li>
+              <i class="lightgrey fas fa-comment-alt" @click="showNewContact()"></i>
+              <div 
+                v-show='newMessageDiv'
+                class="newMessageForm">
+                <input type="text" placeholder="Nuovo contatto" v-model='toAddNewContactName' @keyup.enter="createNewContact()">
+              </div>
+            </li>
             <li><i class="lightgrey fas fa-ellipsis-v"></i></li>
           </ul>
         </div>
@@ -46,7 +53,7 @@
       <div class="inputArea">
         <div class="inputDiv">
           <div class="searchIcon f-left"><i class="lightgrey fas fa-search"></i></div>
-          <div class="input f-left"><input type="text" placeholder="Cerca o Inizia una nuova chat"></div>
+          <div class="input f-left"><input type="text" v-model='filterChat'  @keyup="filterUserList()" placeholder="Cerca o Inizia una nuova chat"></div>
         </div>
       </div>
 
@@ -55,6 +62,7 @@
         <div 
         v-for="(contact,index) in contacts"
         @click="attivaChat(index)"
+        v-show='filterContacts[index]'
         class="userChatBox">
           <div class="avatar">
             <img :src="image(index)" alt="">
@@ -95,12 +103,11 @@
       <section>
         <!-- i messaggi sono contenuti in un loro proprio container -->
         <div class="chat-area">
-
           <div 
             v-for="(message,index) in contacts[activeChatUser].messages"
             class="message-row">
               <div 
-              :class="testClass(index)">
+              :class="isSent(index)">
                 {{message.text}}
                 <i class="lightgrey fas fa-angle-down"></i>
                 <span class="time">{{message.date}}</span>
