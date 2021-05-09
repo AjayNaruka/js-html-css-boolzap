@@ -41,6 +41,101 @@ const app = new Vue({
             date: '10/01/2020 16:15:22',
             text: 'Tutto fatto!',
             status: 'received'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'TEST OCCORRENZE: ',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
+          },
+          {
+            date: '10/01/2020 15:30:55',
+            text: 'Hai portato a spasso il cane?',
+            status: 'sent'
           }
         ],
       },
@@ -143,6 +238,7 @@ const app = new Vue({
 
     isSent(index){
       let bubbleColor='received'
+      
       if(this.contacts[this.activeChatUser].messages[index].status==='sent') bubbleColor='sent'
       return 'message-box '+ bubbleColor
     },
@@ -237,7 +333,7 @@ const app = new Vue({
 
       // PER SALVARE LE VARIE OCCORRENZE
       let matchIndexes=[]
-
+      this.searching=true
       if(this.toSearchMessage!==''){
         let toFind = this.toSearchMessage;
       
@@ -260,17 +356,20 @@ const app = new Vue({
       
     },
     nextMatchtoLook(){
+      this.searching=true
       console.log(this.arrayForMatches);
       this.nextMatch++;
       if(this.nextMatch>this.arrayForMatches.length-1) this.nextMatch=0;
-      this.searchMessage()
+      this.searchMessage() // per muovere anchor
       console.log(this.nextMatch);
+      
     },
     prevMatchtoLook(){
       this.nextMatch--;
       if(this.nextMatch<0) this.nextMatch=this.arrayForMatches.length-1;
       this.searchMessage()
     },
+    
 
     //PER DARE ID UNIVOCI AI SINGOLI MESSAGGI
     giveId(index){

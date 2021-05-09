@@ -98,10 +98,8 @@
                 v-show='searchMessageDiv'
                 class="findMessage">
                 <input type="text" placeholder="Cerca messaggio" v-model='toSearchMessage' @keyup.enter='searchMessage()'>
-                <i class="fas fa-angle-down" @click='nextMatchtoLook()'></i>
-                <i class="fas fa-angle-up" @click='prevMatchtoLook()'></i>
-                <!-- DEVO CLICCARE SU GO PER MUOVERMI AL MESSAGGIO DA RICERCARE -->
-                <a :href="anchorToMoveOn">GO</a>
+                <a :href="anchorToMoveOn"><i class="fas fa-angle-down" @click='nextMatchtoLook()'></i></a>
+                <a :href="anchorToMoveOn"><i class="fas fa-angle-up" @click='prevMatchtoLook()'></i></a>
               </div>
             </li>
             <li><i class="lightgrey fas fa-paperclip"></i></li>
@@ -116,7 +114,8 @@
         <div class="chat-area" @click="showSearchDiv('area')">
           <div 
             v-for="(message,index) in contacts[activeChatUser].messages"
-            class="message-row">
+            class="message-row"
+            >
             <!-- sistemare => crea loop infinito con creazione id -->
               <div 
               :id="giveId(index)" 

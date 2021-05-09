@@ -202,6 +202,19 @@ footer i{
   margin-right: auto;
   background-color: white;
 }
+.message-box.testblink, .message-row.testblink{
+  animation-name: highlightsearch;
+  animation-duration: 1s;
+}
+
+@keyframes highlightsearch{
+  from{
+    background-color: red;
+  }
+  to{
+    background-color: none;
+  }
+}
 .message-box i{
   display: none;
   position: absolute;
