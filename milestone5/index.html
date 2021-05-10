@@ -70,7 +70,10 @@
           </div>
           <div class="avatarInfos">
             <span>{{contact.name}}</span>
+            
           </div>
+          <span class="lastmessage">{{contact.lastmessage}}</span>
+          <span class="lastlogin">{{contact.lastdate}}</span>
         </div>
         
         
@@ -87,7 +90,7 @@
           </div>
           <div class="avatarInfos">
             <span>{{contacts[activeChatUser].name}}</span>
-            <span class="accesso">Ultimo accesso oggi alle</span>
+            <span class="accesso">Ultimo accesso oggi alle {{contacts[activeChatUser].lastreceived}}</span>
           </div>
         </div>
         

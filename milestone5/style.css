@@ -367,6 +367,7 @@ i.bell{
   
 }
 .left .userList .userChatBox{
+position: relative;
  height: 80px;
  width: 100%;
  /* background-color: red; */
@@ -377,6 +378,28 @@ i.bell{
 .left .userList .userChatBox .avatar{
   width: 65px;
   height: 65px;
+}
+
+
+
+span.lastmessage, span.lastlogin{
+  position: absolute;
+  font-size: 12px;
+  color: lightgray;
+  line-height: normal;
+}
+span.lastmessage{
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  top: 50px;
+  left: 84px;
+}
+span.lastlogin{
+ top:10px;
+ right: 10px;
+
 }
 
 /* NEW MESSAGE DIV */
@@ -432,7 +455,7 @@ i.bell{
 
 .left .userChatBox:hover{
   cursor: pointer;
-  background-color: lightgray;
+  background-color: lightslategray;
 }
 .avatar:hover{
   cursor: pointer;

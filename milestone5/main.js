@@ -3,6 +3,9 @@ const app = new Vue({
   el: '#app',
 
   data: {
+    lastDates:[],
+    lastDateReceived:[],
+    lastMessages:[],
 
     newMessageDiv :false, //TENDINA
     searchMessageDiv:false, //TENDINA
@@ -215,7 +218,13 @@ const app = new Vue({
 
   mounted: function(){
     this.initialize()
+    this.ultimo()
   },
+
+  updated: function() {
+    this.ultimo()
+  },
+  
   methods:{
 
     initialize(){ //* PER VISIBILITA INIZIALE - NESSUN NOME FILTRATO
@@ -232,7 +241,7 @@ const app = new Vue({
     },
 
     /////////////////////////////////////////////////////////////
-    //PER SCEGLIERE QUALE CHAT RENDERE VISIBILE NEL CONTENT
+    //PER SCEGLIERE QUALE USER CHAT RENDERE VISIBILE NEL CONTENT
     ////////////////////////////////////////////////////////////
 
     attivaChat(index){
@@ -249,7 +258,6 @@ const app = new Vue({
       if(this.contacts[this.activeChatUser].messages[index].status==='sent') bubbleColor='sent'
       return 'message-box '+ bubbleColor
     },
-
 
     //////////////////////////////////////////////////////
     //INVIO NUOVO MESSAGE NELLA SPECIFICA CHAT APERTA
@@ -269,23 +277,28 @@ const app = new Vue({
       this.userWritingMessage=''
       }
 
+      /* this.ultimo() */ // PER REFRESHARE
       //RISPOSTA
-      this.invioRisposta()
+      this.invioRisposta('yes')
       
     },
 
-    invioRisposta(){
-        
+    invioRisposta(str){
+      if(str==='yes'){
         setTimeout(()=>{
           let answer= 'Ok'
           let receiveDate = new Date()
           let toReceiveMessage={
-          date:`${receiveDate.getDate()}/${receiveDate.getMonth()+1}/${receiveDate.getFullYear()} ${receiveDate.getHours()}:${receiveDate.getMinutes()}:${receiveDate.getSeconds()}`,
-          text: answer,
-          status: 'received'
-        }
+            date:`${dayjs().format('DD')}/${dayjs().format('MM')}/${dayjs().format('YYYY')} ${dayjs().format('HH')}:${dayjs().format('mm')}:${dayjs().format('ss')}`,
+            text: answer,
+            status: 'received'
+          }
           this.contacts[this.activeChatUser].messages.push(toReceiveMessage)
-        },1000)
+          this.ultimo() // senza questa riga non mi refresha l'ultima data nella lista a sx
+        },2000)
+      }
+
+      this.ultimo() // da fare anche nel caso in cui non ricevo risposta
     },
 
     ////////////////////////////////////////////////////////
@@ -294,6 +307,7 @@ const app = new Vue({
 
     filterUserList(){
       if(this.filterChat===''){
+        //SE NON STO CERCANDO NULLA ALLORA MOSTRO TUTTI
         this.initialize()
       }else{
         //USO ARRAY AUSILIARIO COSI DA NON DOVER RESETTARE OGNI VOLTA FILTERCONTACTS[]
@@ -351,17 +365,7 @@ const app = new Vue({
         this.toSearchMessage='',
         this.nextMatch=0  
       }
-    
-      
-      
     },
-    /* resetOptions(){
-      if(this.showMessageOptions){
-        for(let i=0;i<this.options.length;i++){
-          this.options[i]=false
-        }
-      }
-    }, */
 
     //funzione di ricerca: facendo un confronto tra v-model e i text presenti nel array messages del active user chat:
     searchMessage(){
@@ -418,7 +422,7 @@ const app = new Vue({
     //ogni messaggio deve avere il suo specifico menu a tendina
     openMessageOptions(index){
 
-      //AL CLICK VENGONO TUTTI CHIUSI a prescindere
+      //AL --PRIMO-- CLICK VENGONO TUTTI CHIUSI a prescindere
       for(let i=0;i<this.options.length;i++){
         this.options[i]=false
       }
@@ -456,14 +460,54 @@ const app = new Vue({
     //CANCELLAZIONE MESSAGGIO
     //////////////////////////////////////////
     
-    // Reimposto l'array dei messaggi
     deleteSelectedMessage(index){
+      // Reimposto l'array dei messaggi per il active user cancellando quello di indice index
       console.log(index);
       this.contacts[this.activeChatUser].messages.splice(index,1)
       //chiudo menu tendina
       this.openMessageOptions()
     },
-    
+
+    ////////////////////////////////////////////////
+    // CALCOLO ULTIMA DATA, ULTIMO MESSAGGIO, ULTIMO MESSAGGIO RICEVUTO
+    ///////////////////////////////////////////////
+
+    ultimo(){
+      
+      let innerArrayLast=[]
+      let innerArrayLastDate=[]
+      let innerArrayLastReceived=[]
+
+      for(let i =0;i<this.contacts.length;i++){
+        let lastMessage='';
+        let lastDate='';
+        let lastReceived='';
+        lastMessage = this.contacts[i].messages[this.contacts[i].messages.length-1].text;
+        lastDate= this.contacts[i].messages[this.contacts[i].messages.length-1].date;
+
+        for(let j=0;j<this.contacts[i].messages.length;j++){
+          if(this.contacts[i].messages[j].status==='received'){
+            lastReceived = this.contacts[i].messages[j].date
+          }
+        }
+
+        
+
+      /* console.log(lastMessage); */
+      innerArrayLast.push(lastMessage)
+      innerArrayLastDate.push(lastDate)
+
+      //do a ciascun contatto un nuovo parametro
+      this.contacts[i].lastmessage=lastMessage;
+      this.contacts[i].lastdate=lastDate;
+      this.contacts[i].lastreceived = lastReceived;
+    }
+    this.lastMessages=[...innerArrayLast]
+    this.lastDates= [...innerArrayLastDate]
+    this.lastMessages = [...innerArrayLastReceived]
+    console.log(this.lastMessages);
+    console.log(this.contacts)
+    },
 
     numGen(min,max){
       return Math.floor(Math.random() * (max - min + 1) + min)
