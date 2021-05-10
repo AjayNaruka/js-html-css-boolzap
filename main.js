@@ -21,6 +21,10 @@ const app = new Vue({
     nextMatch:0,
     arrayForMatches:[],
 
+    user:{
+      name:'Ajay Naruka',
+      avatar: '_io'
+    },
     contacts: [
       {
         name: 'Michele',
@@ -324,6 +328,7 @@ const app = new Vue({
       }
       if(str==='area'){
         this.searchMessageDiv=false
+        this.toSearchMessage=''
       }
       
     },

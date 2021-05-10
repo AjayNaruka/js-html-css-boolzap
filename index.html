@@ -19,10 +19,10 @@
       <div class="currentUserBar">
         <div class="currentUser">
           <div class="avatar">
-            <img src="img/avatar_io.jpg" alt="">
+            <img :src="'img/avatar'+ user.avatar +'.jpg'" alt="">
           </div>
           <div class="avatarInfos">
-            <span>Ajay Naruka</span>
+            <span>{{user.name}}</span>
           </div>
           
         </div>
