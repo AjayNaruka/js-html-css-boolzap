@@ -64,7 +64,8 @@
         v-for="(contact,index) in contacts"
         @click="attivaChat(index)"
         v-show='filterContacts[index]'
-        class="userChatBox">
+        class="userChatBox"
+        :class="activeChatUser===index ? 'active' : 'null'">
           <div class="avatar">
             <img :src="image(index)" alt="">
           </div>
@@ -124,7 +125,8 @@
               <!-- DIV TIPO MESSAGE: -->
               <div 
               :id="giveId(index)" 
-              :class="isSent(index)">
+              class="message-box"
+              :class="message.status">
                 {{message.text}}
                 <i class="lightgrey fas fa-angle-down" @click='openMessageOptions(index)'></i>
                 <span class="time">{{message.date}}</span>
@@ -136,7 +138,10 @@
                     <li><a href="#" @click='deleteSelectedMessage(index)'>Delete Message</a></li>
                   </ul>
                 </div>
-              </div>
+                <!-- <div 
+                v-show ='testHighlight'
+                class="messageHighlight"></div>
+              </div> -->
           </div>
         </div>
         

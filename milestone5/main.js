@@ -24,6 +24,8 @@ const app = new Vue({
     anchorToMoveOn:'',
     nextMatch:0,
     arrayForMatches:[],
+    highlightsArray:[],
+    testHighlight : false,
 
     options:[],
 
@@ -249,12 +251,11 @@ const app = new Vue({
     },
     
     ////////////////////////////////////////////
-    //PER IMPOSTARE COLORE MESSAGE BOX
+    //PER IMPOSTARE COLORE MESSAGE BOX >> NON NECESSARIA <<
     ////////////////////////////////////////////
 
     isSent(index){
       let bubbleColor='received'
-      
       if(this.contacts[this.activeChatUser].messages[index].status==='sent') bubbleColor='sent'
       return 'message-box '+ bubbleColor
     },
@@ -371,6 +372,7 @@ const app = new Vue({
     searchMessage(){
 
       // PER SALVARE LE VARIE OCCORRENZE
+      let highlights = []
       let matchIndexes=[]
       this.searching=true
       if(this.toSearchMessage!==''){
@@ -381,6 +383,17 @@ const app = new Vue({
           matchIndexes.push(i)
         }
       }
+
+      //MI SALVO TUTTI GLI INDICI COSI SO QUANTI SONO PER FARE IL CONTROLLO IN MATCHTOLOOK
+      this.arrayForMatches=[...matchIndexes]
+
+      for(let i=0;i<this.arrayForMatches.length;i++){
+        highlights[i]=true
+      }
+
+      this.highlightsArray=[...highlights]
+
+      console.log('highlights: ',highlights.length);
       console.log(matchIndexes);
       console.log('Ci sono: '+matchIndexes.length+'occorrenze');
       //uso this.nextMatch variabile cosi da modificare il messaggi da visualizzare nel caso ho piu occorrenze
@@ -389,26 +402,29 @@ const app = new Vue({
       //SE VOGLIO MOSTRARE SOLO IL PRIMO RISULTATO:
       /* this.anchorToMoveOn='#anchor'+matchIndexes[0] */
       
-      //MI SALVO TUTTI GLI INDICI COSI SO QUANTI SONO PER FARE IL CONTROLLO IN MATCHTOLOOK
-      this.arrayForMatches=[...matchIndexes]
+      
+      
       }
+      console.log('test');
       
     },
     nextMatchtoLook(){
-      this.searching=true
       console.log(this.arrayForMatches);
       this.nextMatch++;
       if(this.nextMatch>this.arrayForMatches.length-1) this.nextMatch=0;
       this.searchMessage() // per muovere anchor
       console.log(this.nextMatch);
       
+      
+      
+      
     },
     prevMatchtoLook(){
       this.nextMatch--;
       if(this.nextMatch<0) this.nextMatch=this.arrayForMatches.length-1;
       this.searchMessage()
-    },
-    
+      console.log(this.nextMatch);
+    },    
 
     //PER DARE ID UNIVOCI AI SINGOLI MESSAGGI
     giveId(index){
@@ -509,6 +525,7 @@ const app = new Vue({
     console.log(this.contacts)
     },
 
+    
     numGen(min,max){
       return Math.floor(Math.random() * (max - min + 1) + min)
     }
